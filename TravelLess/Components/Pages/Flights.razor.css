@@ -1,0 +1,10 @@
+.horiz-div{
+    margin-top:20px;
+    display: flex;
+    gap: 15px;
+    margin-bottom:20px;
+}
+
+.error{
+    color: red;
+}

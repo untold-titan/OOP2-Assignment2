@@ -1,0 +1,50 @@
+﻿@using TravelLess.DataManagers;
+@using TravelLess.Data;
+@page "/flights"
+<div>
+    <div>
+        <h2 class="title">Flight Finder</h2>
+    </div>
+
+    <div class="horiz-div">
+        <div>
+            <label for="from">From:</label>
+            <input id="from" title="From" placeholder="Departure" @bind="from" />
+        </div>
+
+        <div>
+            <label for="to">To:</label>
+            <input id="to" title="To" placeholder="Destination" @bind="to" />
+        </div>
+        <div>
+            <label for="day">Departure Day:</label>
+            <input id="day" title="Departure Day" placeholder="Any" @bind="day" />
+        </div>
+
+        <button style="color:white; background-color:blue" @onclick="FindFlights">Find Flights </button>
+    </div>
+    <p class="error">@errorText</p>
+</div>
+<div>
+    <h2>Found Flights</h2>
+    <div>
+        <p>Loading...</p>
+    </div>
+    @* TODO: Display Flights *@
+</div>
+<p>Loaded Flights: @manager.LoadedFlights</p>
+
+@code {
+    string errorText = "";
+    string from = "";
+    string to = "";
+    string day = "";
+    List<Flight> foundFlights;
+
+    FlightManager manager = new();
+
+    void FindFlights()
+    {
+        foundFlights = manager.FindFlight(from, to, day);
+    }
+}
