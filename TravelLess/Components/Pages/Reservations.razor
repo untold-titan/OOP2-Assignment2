@@ -1,47 +1,75 @@
+@using TravelLess.Data;
+@using TravelLess.DataManagers;
 @page "/reservations"
 
-<h3>Reservations</h3>
+<h2>Reservations</h2>
 
 <div class="Container">
-    <div>
-        <h2 class="title">Reserve</h2>
+    <div class="search">
+        <div>
+            <label for="code">Reservation Code:</label>
+            <input id="code" placeholder="Reservation Code" />
+        </div>
+        <div>
+            <label for="line">Airline:</label>
+            <input id="line" placeholder="Airline" />
+        </div>
+        <div>
+            <label for="name">Traveller Name:</label>
+            <input id="name" placeholder="Traveller Name" />
+        </div>
+        <button style="">Search</button>
     </div>
+    <h2>Found Reservations</h2>
     <div>
-        <p class="Input_Titles">Flight Code:</p>
-        <input placeholder="Flight" />
-    </div>
-    <div>
-        <p class="Input_Titles">Airline:</p>
-        <input placeholder="Airline" />
-    </div>
-    <div>
-        <p class="Input_Titles">Day:</p>
-        <input placeholder="Day" />
-    </div>
-    <div>
-        <p class="Input_Titles">Time:</p>
-        <input placeholder="Time" />
-    </div>
-    <div>
-        <p class="Input_Titles">Cost:</p>
-        <input placeholder="0" />
-    </div>
+        @if (foundReservations.Count == 0)
+        {
+            <div>
+                <p>Loading...</p>
+            </div>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <th>Code</th>
+                    <th>Flight Code</th>
+                    <th>Airline</th>
+                    <th>Name</th>
+                    <th>Citizenship</th>
+                    <th>Cost</th>
+                    <th>Active</th>
+                    <th>Update</th>
+                </tr>
 
-
-    <div>
-        <p class="Input_Titles">Name:</p>
-        <input placeholder="Name" />
+                @foreach (Reservation res in foundReservations)
+                {
+                    <tr>
+                        <td>@res.Code</td>
+                        <td>@res.FlightCode</td>
+                        <td>@res.Airline</td>
+                        <td>@res.Name</td>
+                        <td>@res.Citizenship</td>
+                        <td>@res.Cost</td>
+                        <td>@res.Active</td>
+                        <td>
+                                <button>Update</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
     </div>
-
-    <div>
-        <p class="Input_Titles">Citizenship:</p>
-        <input placeholder="Citizenship" />
-    </div>
-
-    <button class="Res_button" style="color:white; background-color:blue">Reserve </button>
-
 </div>
 
 @code {
+    List<Reservation> foundReservations = new List<Reservation>();
+
+    ReservationManager manager = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        foundReservations = manager.Reservations;
+    }
 
 }

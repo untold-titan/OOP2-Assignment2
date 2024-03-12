@@ -1,0 +1,17 @@
+.search {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+button {
+    color: white;
+    background-color: blue
+}

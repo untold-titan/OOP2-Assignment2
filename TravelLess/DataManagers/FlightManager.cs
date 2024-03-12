@@ -10,11 +10,11 @@ namespace TravelLess.DataManagers
 {
     internal class FlightManager
     {
-        List<Flight> flights;
-        public int LoadedFlights => flights.Count;
+        public List<Flight> Flights { get; }
+        public int LoadedFlights => Flights.Count;
         public FlightManager()
         {
-            flights = new List<Flight>();
+            Flights = new List<Flight>();
             string dir = Assembly.GetExecutingAssembly().Location + "../../../../../../../../flights.csv";
             Console.WriteLine(dir);
             var lines = File.ReadAllLines(dir).ToList();
@@ -30,7 +30,7 @@ namespace TravelLess.DataManagers
                 flight.DepartureTime = data[5];
                 flight.Capacity = int.Parse(data[6]);
                 flight.Price = double.Parse(data[7]);
-                flights.Add(flight);
+                Flights.Add(flight);
             }
         }
 
