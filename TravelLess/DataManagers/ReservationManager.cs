@@ -69,10 +69,11 @@ namespace TravelLess.DataManagers
         }
 
 
-        public void UpdateReservation(Reservation res, string name, string citizenship)
+        public void UpdateReservation(Reservation res, string name, string citizenship, bool active)
         {
             res.Name = name;
             res.Citizenship = citizenship;
+            res.Active = active;
             string new_Name = "";
             string new_Cit = "";
             name.Replace(name, new_Name);

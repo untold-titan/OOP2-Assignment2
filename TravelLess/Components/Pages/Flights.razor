@@ -1,6 +1,7 @@
-﻿@using TravelLess.DataManagers;
+﻿                    @using TravelLess.DataManagers;
 @using TravelLess.Data;
 @page "/flights"
+
 <div>
     <div>
         <h2 class="title">Flight Finder</h2>
@@ -9,16 +10,32 @@
     <div class="horiz-div">
         <div>
             <label for="from">From:</label>
-            <input id="from" title="From" placeholder="Departure" @bind="from" />
+            <select id="from" title="From" @bind="from">
+                @foreach (var airportCode in manager.AirportCodes)
+                {
+                    <option value="@airportCode">@airportCode</option>
+                }
+            </select>
         </div>
 
         <div>
             <label for="to">To:</label>
-            <input id="to" title="To" placeholder="Destination" @bind="to" />
+            <select id="to" title="To" @bind="to">
+                @foreach (var airportCode in manager.AirportCodes)
+                {
+                    <option value="@airportCode">@airportCode</option>
+                }
+            </select>
         </div>
+
         <div>
             <label for="day">Departure Day:</label>
-            <input id="day" title="Departure Day" placeholder="Any" @bind="day" />
+            <select id="day" title="Departure Day" @bind="day">
+                @foreach (var dayOfWeek in DayofWeek)
+                {
+                    <option value="@dayOfWeek">@dayOfWeek</option>
+                }
+            </select>
         </div>
 
         <button style="color:white; background-color:blue" @onclick="FindFlights">Find Flights </button>
@@ -88,7 +105,6 @@
     </div>
 }
 
-
 @code {
     // Search Params
     string errorText = "";
@@ -101,6 +117,19 @@
     string citizenship = "";
     Flight selectedFlight = null;
     bool showDialog = false;
+
+    List<string> DayofWeek = new List<string>
+    {
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    };
+
+
 
     List<Flight> foundFlights = new List<Flight>();
 
