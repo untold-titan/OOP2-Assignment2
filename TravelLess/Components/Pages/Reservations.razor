@@ -19,7 +19,7 @@
             <input id="name" placeholder="Traveller Name" @bind="name" />
         </div>
 
-        <button  @onclick="SearchRes">Search</button>
+        <button @onclick="SearchRes">Search</button>
     </div>
     <h2>Found Reservations</h2>
     <div>
@@ -63,20 +63,20 @@
 
     </div>
 </div>
-@if(showResDialog)
+@if (showResDialog)
 {
-<div class="dialog-background">
-    <dialog open>
-        <h2>Reservation Information</h2>
-        <label for="name2">Traveller Name:</label>
-        <input id="name2" placeholder="Name" @bind="reservationName" /><br />
-        <label for="citizen">Citizenship:</label>
-        <input id="citizen" placeholder="Citizenship" @bind="resCitizenship" /><br />
-        <div class="center">
+    <div class="dialog-background">
+        <dialog open>
+            <h2>Reservation Information</h2>
+            <label for="name2">Traveller Name:</label>
+            <input id="name2" placeholder="Name" @bind="reservationName" /><br />
+            <label for="citizen">Citizenship:</label>
+            <input id="citizen" placeholder="Citizenship" @bind="resCitizenship" /><br />
+            <div class="center">
                 <button @onclick="UpdateReso">Update</button>
-        </div>
-    </dialog>
-</div>
+            </div>
+        </dialog>
+    </div>
 }
 
 
@@ -86,14 +86,12 @@
     string reservationName = "";
     string resCitizenship = "";
     string name = "";
-    string code="";
-    string airline="";
+    string code = "";
+    string airline = "";
     Reservation selectedRes = null;
     bool showResDialog = false;
-    
-    List<Reservation> foundReservations = new List<Reservation>();
-    
 
+    List<Reservation> foundReservations = new List<Reservation>();
 
     ReservationManager manager = new();
 
@@ -108,7 +106,7 @@
         selectedRes = res;
         showResDialog = true;
     }
-   
+
     void UpdateReso()
     {
         showResDialog = false;
@@ -116,11 +114,8 @@
     }
     void SearchRes()
     {
-        
-        foundReservations = manager.FindReso(code,airline,name);
-        
-    }
 
-    
-    
+        foundReservations = manager.FindReso(code, airline, name);
+
+    }
 }

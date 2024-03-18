@@ -8,7 +8,7 @@ namespace TravelLess.Data
 {
     internal class Reservation
     {
-        public string Code => ReservationCode();
+        public string Code;
         public string FlightCode => Flight.Code;
         public string Airline => Flight.Airline;
         public string Name { get; set; }

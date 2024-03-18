@@ -12,6 +12,8 @@ namespace TravelLess.DataManagers
     {
         public List<Flight> Flights { get; }
         public int LoadedFlights => Flights.Count;
+
+        public List<string> AirportCodes { get; }
         public FlightManager()
         {
             Flights = new List<Flight>();
@@ -32,6 +34,9 @@ namespace TravelLess.DataManagers
                 flight.Price = double.Parse(data[7]);
                 Flights.Add(flight);
             }
+            AirportCodes = Flights.Select(flight => flight.FromAirport).Distinct().ToList();
+            AirportCodes.AddRange(Flights.Select(flight => flight.ToAirport).Distinct());
+            AirportCodes = AirportCodes.Distinct().ToList();
         }
 
         /// <summary>
@@ -42,8 +47,11 @@ namespace TravelLess.DataManagers
         /// <param name="dayofweek">The day of the week to depart on, Thursday for example</param>
         public List<Flight> FindFlight(string from, string to, string dayofweek)
         {
-            var found = new List<Flight>();
-            // TODO: Find Flights from the flights array
+            var found = Flights.Where(flight =>
+                 flight.FromAirport.Equals(from, StringComparison.OrdinalIgnoreCase) &&
+                 flight.ToAirport.Equals(to, StringComparison.OrdinalIgnoreCase) &&
+                 flight.DayofWeek.Equals(dayofweek, StringComparison.OrdinalIgnoreCase))
+                 .ToList();
             return found;
         }
     }

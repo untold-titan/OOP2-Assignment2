@@ -29,6 +29,7 @@ namespace TravelLess.DataManagers
                     reservation.Name = data[0];
                     reservation.Citizenship = data[1];
                     reservation.Flight = flights.Flights.FirstOrDefault(f => f.Code == data[2]);
+                    reservation.Code = data[3];
                     Reservations.Add(reservation);
                 }
             }
@@ -41,28 +42,26 @@ namespace TravelLess.DataManagers
             reservation.Name = name;
             reservation.Citizenship = citizenship;
             reservation.Flight = flight;
+            reservation.Code = reservation.ReservationCode();
             Reservations.Add(reservation);
             SaveReservations();
         }
-        public List<Reservation> FindReso(string searchCode, string searchAir,  string searchName )
+        public List<Reservation> FindReso(string searchCode, string searchAir, string searchName)
         {
 
             List<Reservation> SearchedReso = new List<Reservation>();
             foreach (Reservation reservation in Reservations)
-            { 
+            {
+                if (searchAir == "" && searchCode == "" && searchAir == "")
+                {
+                    return Reservations;
+                }
+
                 if (reservation.Code == searchCode ||
                     reservation.Airline == searchAir ||
                     reservation.Name == searchName)
                 {
                     SearchedReso.Add(reservation);
-
-
-                }
-                else if (searchAir == null ||
-                         searchCode==null  ||
-                         searchAir == null ) 
-                {
-                    return SearchedReso;
                 }
 
             }
@@ -72,19 +71,14 @@ namespace TravelLess.DataManagers
 
         public void UpdateReservation(Reservation res, string name, string citizenship)
         {
-
-
-            ; res.Name = name;
+            res.Name = name;
             res.Citizenship = citizenship;
             string new_Name = "";
             string new_Cit = "";
             name.Replace(name, new_Name);
             citizenship.Replace(citizenship, new_Cit);
             SaveReservations();
-
-
         }
-
 
         public void SaveReservations()
         {
