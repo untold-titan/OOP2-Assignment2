@@ -1,10 +1,18 @@
 .search {
-    margin-top: 20px;
+    margin: 20px 0px;
     display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
+   align-content:space-between;
+   gap:10px 20px;
+    
+   
 }
-
+.search>div{
+    
+    width:20vw;
+}
+input{
+    width:20vw;
+}
 table, th, td {
     padding: 10px;
     text-align: center;
@@ -12,6 +20,26 @@ table, th, td {
 }
 
 button {
+    width:auto;
     color: white;
-    background-color: blue
+    background-color: blue;
+    border-radius:10px;
+
+}
+
+.dialog-background {
+    position: absolute;
+    top: 0;
+    left: 250px;
+    height: 100%;
+    width: calc(100% - 250px);
+    background-color: rgba(128, 128, 128,.5)
+}
+
+dialog {
+    position: sticky;
+    top: 200px;
+    left: 50px;
+    border-width: 1px;
+    border-radius: 15px;
 }

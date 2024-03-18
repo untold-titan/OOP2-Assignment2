@@ -1,9 +1,11 @@
-﻿using System;
+using Microsoft.Extensions.FileSystemGlobbing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using TravelLess.Components.Pages;
 using TravelLess.Data;
 
 namespace TravelLess.DataManagers
@@ -11,6 +13,7 @@ namespace TravelLess.DataManagers
     internal class ReservationManager
     {
         public List<Reservation> Reservations { get; set; }
+
 
         public ReservationManager()
         {
@@ -41,12 +44,47 @@ namespace TravelLess.DataManagers
             Reservations.Add(reservation);
             SaveReservations();
         }
-
-        public Reservation UpdateReservation()
+        public List<Reservation> FindReso(string searchCode, string searchAir,  string searchName )
         {
-            //TODO: Update reservation
-            return null;
+
+            List<Reservation> SearchedReso = new List<Reservation>();
+            foreach (Reservation reservation in Reservations)
+            { 
+                if (reservation.Code == searchCode ||
+                    reservation.Airline == searchAir ||
+                    reservation.Name == searchName)
+                {
+                    SearchedReso.Add(reservation);
+
+
+                }
+                else if (searchAir == null ||
+                         searchCode==null  ||
+                         searchAir == null ) 
+                {
+                    return SearchedReso;
+                }
+
+            }
+            return SearchedReso;
         }
+
+
+        public void UpdateReservation(Reservation res, string name, string citizenship)
+        {
+
+
+            ; res.Name = name;
+            res.Citizenship = citizenship;
+            string new_Name = "";
+            string new_Cit = "";
+            name.Replace(name, new_Name);
+            citizenship.Replace(citizenship, new_Cit);
+            SaveReservations();
+
+
+        }
+
 
         public void SaveReservations()
         {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,5 +27,6 @@ namespace TravelLess.Data
             string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             return letters[rng.Next(letters.Length)] + code.ToString();
         }
+       
     }
 }
