@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using TravelLess.DataManagers;
 
 namespace TravelLess
 {
@@ -15,7 +17,6 @@ namespace TravelLess
                 });
 
             builder.Services.AddMauiBlazorWebView();
-
 #if DEBUG
     		builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();

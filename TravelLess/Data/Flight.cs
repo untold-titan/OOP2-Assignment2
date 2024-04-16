@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TravelLess.Data
 {
-    internal class Flight
+    public class Flight
     {
+        public int Id { get; set; }
         public string Code { get; set; } // TB-4012 
         public string Airline { get; set; } // Air Canada
         public string FromAirport { get; set; } // YYC, should be the airport code, not the name

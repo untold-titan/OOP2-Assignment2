@@ -14,26 +14,38 @@ namespace TravelLess.DataManagers
         public int LoadedFlights => Flights.Count;
 
         public List<string> AirportCodes { get; }
+
+        private DataContext db;
         public FlightManager()
         {
-            Flights = new List<Flight>();
-            string dir = Assembly.GetExecutingAssembly().Location + "../../../../../../../../flights.csv";
-            Console.WriteLine(dir);
-            var lines = File.ReadAllLines(dir).ToList();
-            foreach (var line in lines)
+            db = new DataContext();
+            Flights = db.Flights.ToList();
+
+            //Loads data from text file
+            if (Flights.Count == 0)
             {
-                var data = line.Split(",");
-                Flight flight = new Flight();
-                flight.Code = data[0];
-                flight.Airline = data[1];
-                flight.FromAirport = data[2];
-                flight.ToAirport = data[3];
-                flight.DayofWeek = data[4];
-                flight.DepartureTime = data[5];
-                flight.Capacity = int.Parse(data[6]);
-                flight.Price = double.Parse(data[7]);
-                Flights.Add(flight);
+                Flights = new List<Flight>();
+                string dir = Assembly.GetExecutingAssembly().Location + "../../../../../../../../flights.csv";
+                Console.WriteLine(dir);
+                var lines = File.ReadAllLines(dir).ToList();
+                foreach (var line in lines)
+                {
+                    var data = line.Split(",");
+                    Flight flight = new Flight();
+                    flight.Code = data[0];
+                    flight.Airline = data[1];
+                    flight.FromAirport = data[2];
+                    flight.ToAirport = data[3];
+                    flight.DayofWeek = data[4];
+                    flight.DepartureTime = data[5];
+                    flight.Capacity = int.Parse(data[6]);
+                    flight.Price = double.Parse(data[7]);
+                    Flights.Add(flight);
+                    db.Flights.Add(flight);
+                }
+                db.SaveChanges();
             }
+
             AirportCodes = Flights.Select(flight => flight.FromAirport).Distinct().ToList();
             AirportCodes.AddRange(Flights.Select(flight => flight.ToAirport).Distinct());
             AirportCodes = AirportCodes.Distinct().ToList();

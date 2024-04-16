@@ -1,20 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TravelLess.Data
 {
-    internal class Reservation
+    public class Reservation
     {
-        public string Code;
+        public int Id { get; set; }
+        public string Code { get; set; }
         public string FlightCode => Flight.Code;
         public string Airline => Flight.Airline;
         public string Name { get; set; }
         public string Citizenship { get; set; }
         public double Cost => Flight.Price;
         public bool Active { get; set; } = true;
+        public int flightId { get; set; }
         public Flight Flight { get; set; }
 
         /// <summary>
@@ -27,6 +30,5 @@ namespace TravelLess.Data
             string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             return letters[rng.Next(letters.Length)] + code.ToString();
         }
-       
     }
 }
